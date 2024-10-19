@@ -1,5 +1,5 @@
 import * as contacts from "./contacts.js";
-const { Command } = require("commander");
+import { Command } from "commander";
 
 const program = new Command();
 
@@ -19,22 +19,31 @@ function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case "list":
     contacts
-      // ...
+    .listContacts()
+    .then((data) => console.log("Contacts:", data))
+    .catch((err) => console.error("Error:", err));
       break;
 
     case "get":
     contacts
-      // ... id
+    .getContactById(id)
+    .then((contact) => console.log("Contact By Id:", contact))
+    .catch((err) => console.log("Error:", err));
       break;
 
     case "add":
     contacts
-      // ... name email phone
+    .addContact(name, email, phone)
+    .then((newContact) => console.log("New Contact:", newContact))
+    .catch((err) => console.log("Error:", err));
       break;
 
     case "remove":
     contacts
-      // ... id
+    .removeContact(id)
+    .then((removedContact) =>
+      console.log("Deleted Contact:", removedContact))
+    .catch((err) => console.log("Error:", err));
       break;
 
     default:
